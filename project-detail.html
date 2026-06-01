@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project — Raka Zilva Inggia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --teal: #003F5C;
+            --navy: #182747;
+            --gold: #cfa87b;
+            --cream: #f4ede2;
+            --text: #1c1d1f
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f4f1;
+            color: var(--text);
+            cursor: none;
+            overflow-x: hidden
+        }
+
+        /* NOISE */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: .02;
+            pointer-events: none;
+            z-index: 9000
+        }
+
+        /* CURSOR */
+        #c-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--teal);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%)
+        }
+
+        #c-ring {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(0, 63, 92, 0.35);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width .3s, height .3s, border-color .3s
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px clamp(24px, 5vw, 80px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 500;
+            background: rgba(245, 244, 241, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, .04)
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: rgba(28, 29, 31, 0.6);
+            letter-spacing: .1em;
+            font-weight: 300;
+            text-decoration: none
+        }
+
+        .nav-back {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--teal);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap .3s
+        }
+
+        .nav-back:hover {
+            gap: 14px
+        }
+
+        /* HERO PROJECT */
+        .proj-hero {
+            min-height: 55vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 120px clamp(24px, 5vw, 80px) clamp(40px, 6vw, 80px);
+            position: relative;
+            overflow: hidden
+        }
+
+        .proj-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 80% 50%, rgba(0, 63, 92, 0.5) 0%, transparent 60%)
+        }
+
+        .proj-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: rgba(244, 237, 226, .4);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            z-index: 1;
+            position: relative
+        }
+
+        .proj-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(36px, 6vw, 88px);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--cream);
+            line-height: 1.1;
+            max-width: 860px;
+            z-index: 1;
+            position: relative
+        }
+
+        .proj-meta {
+            display: flex;
+            gap: 40px;
+            margin-top: 32px;
+            z-index: 1;
+            position: relative;
+            flex-wrap: wrap
+        }
+
+        .proj-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .proj-meta-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            color: rgba(244, 237, 226, .3);
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .proj-meta-val {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--cream)
+        }
+
+        /* BIG NUMBER behind title */
+        .proj-num {
+            position: absolute;
+            right: clamp(24px, 5vw, 80px);
+            bottom: -0.1em;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: clamp(120px, 20vw, 280px);
+            color: rgba(255, 255, 255, .04);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -.04em
+        }
+
+        /* ==========================================
+           MODERN BROWSER / LAPTOP SCREEN MOCKUP
+           ========================================== */
+        .proj-image-wrapper {
+            background: #f5f4f1;
+            /* Menyamai background body */
+            padding: 80px clamp(24px, 5vw, 80px);
+            /* Memberi breathing room agar tidak tabrakan */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            margin-top: -50px;
+            /* Efek overlap sedikit ke atas hero biar dinamis */
+        }
+
+        .mockup-container {
+            width: 100%;
+            max-width: 1080px;
+            /* Menyelaraskan dengan lebar konten bawah */
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            /* Efek shadow tebal premium agar gambar terlihat timbul */
+            box-shadow: 0 40px 80px rgba(24, 39, 71, 0.15),
+                0 15px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Top Bar ala Browser Mac / Windows */
+        .mockup-header {
+            height: 32px;
+            background: #e8e6e1;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Container gambar utama */
+        .proj-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            /* Diubah ke 16/9 standar rasio layar laptop/monitor */
+            background: #e8e6e1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .proj-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Memastikan screenshot terisi penuh */
+            object-position: top center;
+            /* Prioritaskan bagian atas aplikasi/dashboard */
+            display: block;
+        }
+
+        .proj-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0ddd8 0%, #d4d1cc 100%)
+        }
+
+        .proj-image-placeholder span {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #aaa;
+            letter-spacing: .15em;
+            text-transform: uppercase
+        }
+
+        /* CONTENT */
+        .proj-content {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: clamp(48px, 7vw, 100px) clamp(24px, 5vw, 80px)
+        }
+
+        .proj-grid {
+            display: grid;
+            grid-template-columns: 1fr 2.5fr;
+            gap: 80px;
+            align-items: start
+        }
+
+        .proj-sidebar {
+            position: sticky;
+            top: 100px
+        }
+
+        .proj-section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--teal);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            margin-bottom: 12px
+        }
+
+        .proj-body h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(20px, 2vw, 28px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text);
+            margin: 36px 0 14px;
+            line-height: 1.3
+        }
+
+        .proj-body h3:first-child {
+            margin-top: 0
+        }
+
+        .proj-body p {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: #4a4a4a;
+            margin-bottom: 20px
+        }
+
+        .proj-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px
+        }
+
+        .proj-body ul li {
+            font-size: 14px;
+            font-weight: 300;
+            color: #4a4a4a;
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative
+        }
+
+        .proj-body ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-size: 11px;
+            top: 3px
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px
+        }
+
+        .tech-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--teal);
+            background: rgba(0, 63, 92, .08);
+            border: 1px solid rgba(0, 63, 92, .15);
+            padding: 5px 10px;
+            border-radius: 3px;
+            letter-spacing: .1em;
+            text-transform: uppercase
+        }
+
+        /* DIVIDER */
+        .proj-divider {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, .07);
+            margin: 48px 0
+        }
+
+        /* BACK BUTTON area */
+        .proj-nav {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 80px) clamp(48px, 7vw, 80px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .back-big {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(18px, 2vw, 26px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: gap .3s, color .3s
+        }
+
+        .back-big:hover {
+            gap: 18px;
+            color: var(--teal)
+        }
+
+        .proj-next-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: #aaa;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            text-align: right;
+            display: block;
+            margin-bottom: 6px
+        }
+
+        .proj-next-link {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(16px, 1.8vw, 22px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text);
+            text-decoration: none;
+            transition: color .3s
+        }
+
+        .proj-next-link:hover {
+            color: var(--teal)
+        }
+
+        /* REVEAL */
+        .rv {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        .rv.on {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(max-width:760px) {
+            .proj-grid {
+                grid-template-columns: 1fr;
+                gap: 40px
+            }
+
+            .proj-sidebar {
+                position: static
+            }
+
+            .proj-meta {
+                gap: 24px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="c-dot"></div>
+    <div id="c-ring"></div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="index.html" class="nav-logo">© Raka Zilva</a>
+        <a href="index.html" class="nav-back">← Back to work</a>
+    </nav>
+
+    <!-- PROJECT HERO -->
+    <div class="proj-hero" id="projHero">
+        <div class="proj-tag" id="projTag">// Project Detail</div>
+        <h1 class="proj-title" id="projTitle">Loading...</h1>
+        <div class="proj-meta">
+            <div class="proj-meta-item">
+                <span class="proj-meta-label">Year</span>
+                <span class="proj-meta-val" id="projYear">—</span>
+            </div>
+            <div class="proj-meta-item">
+                <span class="proj-meta-label">Category</span>
+                <span class="proj-meta-val" id="projCategory">—</span>
+            </div>
+            <div class="proj-meta-item">
+                <span class="proj-meta-label">Role</span>
+                <span class="proj-meta-val" id="projRole">—</span>
+            </div>
+        </div>
+        <div class="proj-num" id="projNum">01</div>
+    </div>
+
+    <!-- IMAGE AREA (Sekarang Dinamis Mengikuti Data JS) -->
+    <!-- IMAGE AREA DENGAN MOCKUP LAPTOP DISPLAY -->
+    <div class="proj-image-wrapper">
+        <div class="mockup-container">
+            <!-- Header bar browser dengan 3 titik minimalis -->
+            <div class="mockup-header">
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+                <div class="mockup-dot"></div>
+            </div>
+            <!-- Wadah screenshot utama -->
+            <div class="proj-image" id="projImage">
+                <!-- Diisi secara otomatis oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="proj-content">
+        <div class="proj-grid rv">
+            <div class="proj-sidebar">
+                <div class="proj-section-label">Tech Stack</div>
+                <div class="tech-tags" id="techTags"></div>
+            </div>
+            <div class="proj-body" id="projBody">
+                <!-- Diisi JS -->
+            </div>
+        </div>
+    </div>
+
+    <hr class="proj-divider" style="max-width:1080px;margin:0 auto 0;border-top:1px solid rgba(0,0,0,.07)">
+
+    <!-- NEXT / BACK -->
+    <div class="proj-nav">
+        <a href="index.html" class="back-big">← All Projects</a>
+        <div style="text-align:right">
+            <span class="proj-next-label">Next Project</span>
+            <a href="#" class="proj-next-link" id="nextLink">—</a>
+        </div>
+    </div>
+
+    <script>
+        /* ---- CURSOR ---- */
+        const dot = document.getElementById('c-dot'), ring = document.getElementById('c-ring');
+        let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px' });
+        (function loop() { rx += (mx - rx) * .13; ry += (my - ry) * .13; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop) })();
+        document.querySelectorAll('a').forEach(el => {
+            el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(0,63,92,.6)' });
+            el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(0,63,92,.35)' });
+        });
+
+        /* ---- SCROLL REVEAL ---- */
+        const io = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') }) }, { threshold: .1 });
+        document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+        /* ---- PROJECT DATA ---- */
+        // Masukkan path file gambar lu pada properti 'image' di masing-masing objek projek bawah ini.
+        /* ---- PROJECT DATA ---- */
+        const projects = {
+            1: {
+                title: 'Custom Learning Management System',
+                year: '2026',
+                category: 'Fullstack & Cloud',
+                role: 'Lead Developer',
+                num: '01',
+                image: 'image/projeklms.png', // Ini tetap pakai foto lokal lu yang sudah ada
+                tech: ['Python', 'Django', 'PostgreSQL', 'React', 'AWS', 'REST API'],
+                about: `Platform manajemen pembelajaran terintegrasi yang dibangun untuk mendukung distribusi materi dinamis, pengerjaan kuis otomatis, dan cloud backend architecture yang scalable.`,
+                problem: `Kebutuhan akan sistem pembelajaran digital yang dapat mengelola konten secara efisien, melacak progres siswa secara real-time, dan beroperasi di infrastruktur cloud yang handal.`,
+                features: ['Distribusi materi dinamis dengan versioning konten', 'Sistem kuis otomatis dengan analitik performa', 'Cloud backend scalable dengan AWS', 'Dashboard admin real-time', 'Autentikasi multi-role (admin, instruktur, siswa)'],
+                next: 2
+            },
+            2: {
+                title: 'Automated Brand Monitoring Dashboard',
+                year: '2025',
+                category: 'Data Science & NLP',
+                role: 'Data Scientist',
+                num: '02',
+                // MENGGUNAKAN: Gambar grafik data/analytics dashboard yang clean
+                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+                tech: ['Python', 'Streamlit', 'Scikit-learn', 'NLTK', 'NMF', 'Pandas', 'Plotly'],
+                about: `Aplikasi visualisasi data media sosial berbasis Streamlit yang menggunakan klastering topik NLP (NMF) dan machine learning untuk sentiment classification secara otomatis.`,
+                problem: `Brand dan organisasi membutuhkan cara cepat untuk memahami opini publik di media sosial tanpa harus membaca ribuan post secara manual.`,
+                features: ['Sentiment classification multi-label (positif/negatif/netral)', 'Topic clustering otomatis dengan NMF', 'Visualisasi interaktif real-time', 'Export laporan ke PDF', 'Filter berdasarkan platform, tanggal, dan keyword'],
+                next: 3
+            },
+            3: {
+                title: 'Interactive Programming Quiz Platform',
+                year: '2025',
+                category: 'Frontend & Logic',
+                role: 'Frontend Developer',
+                num: '03',
+                // MENGGUNAKAN: Gambar workspace coding minimalis yang fokus ke teks editor
+                image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+                tech: ['Python', 'Flask', 'JavaScript', 'HTML/CSS', 'SQLite'],
+                about: `Sistem gamifikasi kuis interaktif berbasis Python logika terapan untuk menyederhanakan pemahaman struktur data bagi pemula dengan pendekatan yang menyenangkan.`,
+                problem: `Pemula dalam pemrograman sering kesulitan memahami konsep struktur data karena materi yang terlalu abstrak dan kurang interaktif.`,
+                features: ['Mode quiz adaptif berdasarkan level', 'Leaderboard real-time', 'Penjelasan jawaban dengan visualisasi', 'Progress tracking per topik', 'Mode belajar vs mode ujian'],
+                next: 4
+            },
+            4: {
+                title: 'Cryptographic Core Backend Infrastructure',
+                year: '2025',
+                category: 'Security & Software Eng.',
+                role: 'Backend Engineer',
+                num: '04',
+                // MENGGUNAKAN: Gambar kode siber / matriks enkripsi abstrak (cocok untuk backend tanpa UI)
+                image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+                tech: ['C++', 'Python', 'RSA Algorithm', 'OpenSSL', 'CMake', 'REST API'],
+                about: `Rancangan sistem backend tangguh menggunakan implementasi algoritma keamanan enkripsi RSA untuk transmisi data informasi sensitif yang aman dan efisien.`,
+                problem: `Kebutuhan akan lapisan keamanan kriptografi yang kuat untuk melindungi data sensitif dalam transmisi antar sistem tanpa ketergantungan pada library pihak ketiga.`,
+                features: ['Implementasi RSA dari scratch menggunakan C++', 'Key pair generation dinamis', 'Enkripsi/dekripsi end-to-end', 'REST API interface untuk integrasi', 'Unit testing komprehensif'],
+                next: 1
+            }
+
+        };
+
+        /* ---- LOAD DATA FROM URL PARAM ---- */
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id')) || 1;
+        const p = projects[id] || projects[1];
+
+        document.title = p.title + ' — Raka Zilva Inggia';
+        document.getElementById('projTag').textContent = '// Project 0' + id;
+        document.getElementById('projTitle').textContent = p.title;
+        document.getElementById('projYear').textContent = p.year;
+        document.getElementById('projCategory').textContent = p.category;
+        document.getElementById('projRole').textContent = p.role;
+        document.getElementById('projNum').textContent = '0' + id;
+
+        // Render Image (Jika image ada jalankan tag <img>, jika kosong tampilkan placeholder bawaan)
+        const imageArea = document.getElementById('projImage');
+        if (p.image && p.image !== '') {
+            imageArea.innerHTML = `<img src="${p.image}" alt="${p.title}">`;
+        } else {
+            imageArea.innerHTML = `<div class="proj-image-placeholder"><span>Screenshot / Demo Preview</span></div>`;
+        }
+
+        // Tech tags
+        const tagsEl = document.getElementById('techTags');
+        p.tech.forEach(t => { const span = document.createElement('span'); span.className = 'tech-tag'; span.textContent = t; tagsEl.appendChild(span) });
+
+        // Body content
+        document.getElementById('projBody').innerHTML = `
+  <h3>Tentang Projek</h3>
+  <p>${p.about}</p>
+  <h3>Problem yang Dipecahkan</h3>
+  <p>${p.problem}</p>
+  <h3>Fitur Utama</h3>
+  <ul>${p.features.map(f => '<li>' + f + '</li>').join('')}</ul>
+`;
+
+        // Next project link
+        const nextP = projects[p.next];
+        if (nextP) {
+            const nextLink = document.getElementById('nextLink');
+            nextLink.textContent = nextP.title;
+            nextLink.href = 'project-detail.html?id=' + p.next;
+        }
+    </script>
+</body>
+
+</html>

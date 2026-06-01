@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raka Zilva Inggia — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #7c8082;
+            --teal: #003F5C;
+            --navy: #182747;
+            --gold: #cfa87b;
+            --cream: #f4ede2;
+            --text-on-light: #1c1d1f;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'Inter', sans-serif;
+            cursor: none;
+            overflow-x: hidden
+        }
+
+        /* NOISE EFFECT */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: .025;
+            pointer-events: none;
+            z-index: 9000
+        }
+
+        /* CURSOR */
+        #c-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--cream);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%)
+        }
+
+        #c-ring {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(244, 237, 226, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            letter-spacing: 1.5px;
+            color: var(--cream);
+            transition: width .4s cubic-bezier(.16, 1, .3, 1), height .4s cubic-bezier(.16, 1, .3, 1), border-color .4s, background .4s
+        }
+
+        /* PRELOADER */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #0d0f10;
+            z-index: 8000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s cubic-bezier(.76, 0, .24, 1)
+        }
+
+        .pre-pulse {
+            width: 6px;
+            height: 6px;
+            background: var(--cream);
+            border-radius: 50%;
+            margin-bottom: 30px;
+            animation: blink 1s ease-in-out infinite alternate
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: .2;
+                transform: scale(.7)
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.3)
+            }
+        }
+
+        #pre-word {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--cream);
+            letter-spacing: .12em;
+            opacity: 0;
+            transition: opacity .35s ease
+        }
+
+        #pre-sub {
+            margin-top: 14px;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: rgba(244, 237, 226, 0.25);
+            letter-spacing: .3em;
+            text-transform: uppercase
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 28px clamp(24px, 5vw, 80px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 500
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: rgba(244, 237, 226, 0.7);
+            letter-spacing: .1em;
+            font-weight: 300;
+            text-decoration: none
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none
+        }
+
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 400;
+            color: rgba(244, 237, 226, 0.45);
+            text-decoration: none;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            transition: color .3s
+        }
+
+        .nav-links a:hover {
+            color: var(--cream)
+        }
+
+        /* HERO */
+        #hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden
+        }
+
+        #hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        #hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block
+        }
+
+        #hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 0%, transparent 40%, rgba(0, 0, 0, 0.35) 100%)
+        }
+
+        /* MARQUEE NAMA — FIX HURUF 'g' KEPOTONG */
+        .mq-wrap {
+            position: absolute;
+            bottom: 45px;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 10;
+            padding-bottom: 25px;
+            will-change: transform
+        }
+
+        .mq-track {
+            display: inline-flex;
+            transform: translate3d(0, 0, 0);
+            animation: mq-continuous 28s linear infinite;
+            will-change: transform
+        }
+
+        .mq-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(64px, 14vw, 200px);
+            /* Dikecilkan sedikit batas bawahnya biar aman di HP jadul */
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: -.03em;
+            line-height: 1.2;
+            padding-right: 3vw;
+        }
+
+        @keyframes mq-continuous {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-33.3333%, 0, 0);
+            }
+        }
+
+        .hero-right {
+            position: absolute;
+            right: clamp(16px, 4vw, 60px);
+            top: 45%;
+            transform: translateY(-50%);
+            z-index: 20;
+            max-width: 240px
+        }
+
+        .hero-arrow {
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin-bottom: 18px;
+            opacity: .7;
+            transition: transform .5s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        .hero-right:hover .hero-arrow {
+            transform: translate3d(4px, 4px, 0)
+        }
+
+        .hero-right h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(20px, 2vw, 28px);
+            font-weight: 300;
+            color: #fff;
+            line-height: 1.35;
+            letter-spacing: -.01em
+        }
+
+        .hero-chip {
+            display: inline-block;
+            margin-top: 14px;
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(244, 237, 226, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px 10px;
+            border-radius: 3px
+        }
+
+        .hero-left {
+            position: absolute;
+            left: clamp(16px, 4vw, 60px);
+            top: 40%;
+            transform: translateY(-50%);
+            z-index: 20
+        }
+
+        .hero-year {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            margin-bottom: 8px
+        }
+
+        .hero-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+            animation: statusblink 2s ease-in-out infinite
+        }
+
+        @keyframes statusblink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        /* WAVE 1 (TOP DIVIDER) */
+        .wave-container {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            background: transparent;
+            margin-top: -79px;
+            z-index: 35;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .wave-container svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            animation: wave-move 12s cubic-bezier(.45, .05, .55, .95) infinite alternate;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        /* WAVE 2 (FOOTER DIVIDER - GERAKAN KE ATAS MENYATU KE NAVY) */
+        .footer-wave-container {
+            position: relative;
+            width: 100%;
+            height: 90px;
+            background: transparent;
+            margin-bottom: -2px;
+            /* Mencegah pixel bocor/garis putih */
+            z-index: 35;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .footer-wave-container svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            animation: wave-move 10s cubic-bezier(.45, .05, .55, .95) infinite alternate-reverse;
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        @keyframes wave-move {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-50%, 0, 0);
+            }
+        }
+
+        /* ABOUT SECTION */
+        #about {
+            background: var(--teal);
+            padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px) 0;
+            position: relative;
+            z-index: 30;
+        }
+
+        .about-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: start
+        }
+
+        .about-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .about-h {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(24px, 2.8vw, 42px);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.35;
+            color: var(--cream);
+            margin-top: 14px
+        }
+
+        .about-body {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.9;
+            color: rgba(244, 237, 226, 0.75);
+            max-width: 560px
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(244, 237, 226, 0.12)
+        }
+
+        .sk-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            color: var(--gold);
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        .sk-name {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--cream);
+            margin-top: 9px;
+            line-height: 1.7
+        }
+
+        /* EXPERIENCE SECTION */
+        #experience {
+            background: var(--teal);
+            padding: clamp(48px, 7vw, 100px) clamp(24px, 5vw, 80px) clamp(64px, 10vw, 130px);
+            position: relative;
+            z-index: 30
+        }
+
+        .exp-inner {
+            max-width: 1080px;
+            margin: 0 auto
+        }
+
+        .exp-head {
+            margin-bottom: 36px;
+            border-bottom: 1px solid rgba(244, 237, 226, 0.12);
+            padding-bottom: 16px
+        }
+
+        .exp-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1.5fr;
+            padding: 28px 0;
+            border-bottom: 1px solid rgba(244, 237, 226, 0.08);
+            align-items: center
+        }
+
+        .exp-time {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(244, 237, 226, 0.5);
+            letter-spacing: .05em
+        }
+
+        .exp-company {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--cream)
+        }
+
+        .exp-company span {
+            display: block;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(244, 237, 226, 0.6);
+            margin-top: 4px
+        }
+
+        .exp-role {
+            font-size: 13px;
+            color: var(--gold);
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            text-align: right
+        }
+
+        /* WORK SECTION */
+        #work {
+            padding: clamp(64px, 10vw, 130px) clamp(24px, 5vw, 80px);
+            position: relative;
+            z-index: 30
+        }
+
+        .work-top {
+            max-width: 1080px;
+            margin: 0 auto 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end
+        }
+
+        .work-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: rgba(244, 237, 226, .35)
+        }
+
+        .work-h {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 3.8vw, 54px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--cream);
+            margin-top: 6px
+        }
+
+        .work-ct {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--teal);
+            letter-spacing: .1em
+        }
+
+        .work-list {
+            max-width: 1080px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, .09)
+        }
+
+        .work-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .07);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: padding-left .45s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        .work-row::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 63, 92, .25);
+            transform: translate3d(-100%, 0, 0);
+            transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+            z-index: 0
+        }
+
+        .work-row:hover::before {
+            transform: translate3d(0, 0, 0)
+        }
+
+        .work-row:hover {
+            padding-left: 20px
+        }
+
+        .wr-l {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            z-index: 1
+        }
+
+        .wr-yr {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: rgba(244, 237, 226, .3);
+            letter-spacing: .06em;
+            min-width: 32px
+        }
+
+        .wr-nm-block {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .wr-nm {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(20px, 2.5vw, 32px);
+            font-weight: 300;
+            color: var(--cream);
+            letter-spacing: .01em;
+            transition: color .3s, letter-spacing .4s
+        }
+
+        .wr-desc {
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(244, 237, 226, .4);
+            max-width: 500px;
+            line-height: 1.5;
+            transition: color .3s
+        }
+
+        .work-row:hover .wr-nm {
+            color: rgba(120, 210, 255, .9);
+            letter-spacing: .025em
+        }
+
+        .work-row:hover .wr-desc {
+            color: rgba(244, 237, 226, .75)
+        }
+
+        .wr-r {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            z-index: 1
+        }
+
+        .wr-tag {
+            font-size: 11px;
+            font-weight: 300;
+            color: rgba(244, 237, 226, .35);
+            letter-spacing: .04em;
+            text-align: right
+        }
+
+        .wr-arr {
+            font-size: 17px;
+            color: rgba(244, 237, 226, .35);
+            transition: transform .3s, color .3s
+        }
+
+        .work-row:hover .wr-arr {
+            transform: translate3d(8px, 0, 0);
+            color: var(--gold)
+        }
+
+        /* FOOTER BACKGROUND NAVY */
+        footer {
+            background: var(--navy);
+            padding: clamp(48px, 8vw, 110px) clamp(24px, 5vw, 80px) 40px;
+            position: relative;
+            z-index: 30;
+        }
+
+        .ft-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+            gap: 44px
+        }
+
+        .ft-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: rgba(244, 237, 226, 0.4);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+        }
+
+        .ft-h {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(32px, 4.5vw, 64px);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--cream);
+            margin-top: 12px;
+            line-height: 1.15
+        }
+
+        .ft-cta-box {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .ft-cta {
+            width: clamp(120px, 11vw, 160px);
+            height: clamp(120px, 11vw, 160px);
+            background: var(--teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-decoration: none;
+            transition: background .4s cubic-bezier(.16, 1, .3, 1), transform .4s cubic-bezier(.16, 1, .3, 1);
+            border: 1px solid rgba(244, 237, 226, 0.15);
+        }
+
+        .ft-cta span {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--cream);
+        }
+
+        .ft-cta:hover {
+            background: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .ft-cta:hover span {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .ft-links {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+            flex-wrap: wrap
+        }
+
+        .ft-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(244, 237, 226, .38);
+            text-decoration: none;
+            padding-bottom: 4px;
+            border-bottom: 1px solid transparent;
+            transition: color .3s, border-bottom-color .3s
+        }
+
+        .ft-links a:hover {
+            color: var(--cream);
+            border-bottom-color: var(--gold)
+        }
+
+        .ft-r {
+            margin-top: 32px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(244, 237, 226, .28);
+            letter-spacing: .07em
+        }
+
+        #clock {
+            color: var(--cream);
+            background: rgba(0, 63, 92, 0.5);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .ft-copy {
+            max-width: 1080px;
+            margin: 44px auto 0;
+            padding-top: 22px;
+            border-top: 1px solid rgba(255, 255, 255, .05);
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            letter-spacing: .12em;
+            color: rgba(244, 237, 226, .18);
+            text-transform: uppercase
+        }
+
+        /* REVEAL CLASS */
+        .rv {
+            opacity: 0;
+            transform: translate3d(0, 24px, 0);
+            transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1)
+        }
+
+        .rv.on {
+            opacity: 1;
+            transform: translate3d(0, 0, 0)
+        }
+
+        /* ---------------------------------------------------------------- */
+        /* RESPONSIVE & MOBILE OPTIMIZATION (HP SCREEN BREAKPOINTS)          */
+        /* ---------------------------------------------------------------- */
+        @media(max-width: 860px) {
+
+            /* Global adjustments */
+            body {
+                cursor: default;
+            }
+
+            /* Sembunyikan/kembalikan kursor bawaan di layar sentuh */
+            #c-dot,
+            #c-ring {
+                display: none !important;
+            }
+
+            /* Matikan custom ring cursor di HP agar tidak mengganggu tap */
+
+            nav {
+                padding: 20px 24px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .skills {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .exp-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 20px 0;
+            }
+
+            .exp-role {
+                text-align: left;
+                margin-top: 4px;
+                font-size: 11px;
+            }
+
+            .hero-right,
+            .hero-left {
+                display: none;
+            }
+
+            /* Hide decorative absolute side-items on small screens */
+
+            .work-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                margin-bottom: 32px;
+            }
+
+            .work-row {
+                padding: 24px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .work-row:hover {
+                padding-left: 0;
+            }
+
+            /* Matikan indent hover di mobile */
+            .wr-r {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .wr-r .wr-arr {
+                transform: none !important;
+            }
+
+            /* Footer Mobile Layout */
+            .ft-inner {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .ft-cta-box {
+                justify-content: flex-start;
+                margin-top: 10px;
+            }
+
+            .ft-cta {
+                width: 130px;
+                height: 130px;
+            }
+
+            /* Ukuran lingkaran pas untuk jempol di HP */
+            .ft-links {
+                gap: 16px 20px;
+                margin-top: 30px;
+            }
+
+            .ft-copy {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 32px;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .skills {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .work-row {
+                padding: 20px 0;
+            }
+
+            .wr-l {
+                gap: 14px;
+            }
+
+            .wr-desc {
+                -webkit-line-clamp: 2;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            /* Truncate description di layar super kecil biar ga kepanjangan */
+            .ft-h {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="pre-pulse"></div>
+        <div id="pre-word">Hallo</div>
+        <div id="pre-sub">Raka Zilva Inggia — Portfolio 2026</div>
+    </div>
+
+    <div id="c-dot"></div>
+    <div id="c-ring"></div>
+
+    <nav>
+        <a href="#" class="nav-logo magnet-item">© Raka Zilva</a>
+        <ul class="nav-links">
+            <li><a href="#work" class="magnet-item">Work</a></li>
+            <li><a href="about.html" class="magnet-item">About</a></li>
+            <li><a href="#contact" class="magnet-item">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="hero">
+        <div id="hero-bg">
+            <img src="image/raka2.jpeg" alt="Raka Zilva Inggia" onerror="this.parentElement.style.background='#7c8082'">
+        </div>
+
+        <div class="hero-right">
+            <svg class="hero-arrow" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 6 L22 22 M22 22 L22 8 M22 22 L8 22" stroke="white" stroke-width="1.5"
+                    stroke-linecap="round" />
+            </svg>
+            <h2>Informatics &amp;<br>Data Analyst</h2>
+            <div class="hero-chip">// Web &amp; Cognitive Data</div>
+        </div>
+
+        <div class="hero-left">
+            <div class="hero-year">Portfolio 2026</div>
+            <div class="hero-status">
+                <span class="status-dot"></span>
+                Available for opportunities
+            </div>
+        </div>
+
+        <div class="mq-wrap" id="mqWrap">
+            <div class="mq-track" id="mqTrack">
+                <span class="mq-text">Raka Zilva Inggia &nbsp;—&nbsp;</span>
+                <span class="mq-text">Raka Zilva Inggia &nbsp;—&nbsp;</span>
+                <span class="mq-text">Raka Zilva Inggia &nbsp;—&nbsp;</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="wave-container">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,60 C360,130 720,10 1080,90 C1260,130 1350,90 1440,60 L1440,120 L0,120 Z" fill="#003F5C" />
+            <path d="M1440,60 C1080,130 720,10 360,90 C180,130 90,90 0,60 L0,120 L1440,120 Z" fill="#003F5C"
+                opacity="0.3" />
+        </svg>
+    </div>
+
+    <section id="about">
+        <div class="about-inner">
+            <div class="rv">
+                <div class="about-tag">// Introduction</div>
+                <h3 class="about-h">Helping brands decode social intelligence while building high-performance web
+                    ecosystems.</h3>
+            </div>
+            <div class="rv" style="transition-delay:.12s">
+                <p class="about-body">Sebagai mahasiswa Informatika dan Data Analyst, fokus saya terletak pada integrasi
+                    antara kekuatan pemrosesan backend, kecerdasan model data, serta estetika frontend yang responsif.
+                    Saya percaya bahwa data yang kompleks harus disajikan melalui antarmuka fungsional yang intuitif dan
+                    dikemas secara elegan.</p>
+                <div class="skills">
+                    <div>
+                        <div class="sk-num">01 / Core Systems</div>
+                        <div class="sk-name">Python · C++ · SQL<br>Architecture Systems</div>
+                    </div>
+                    <div>
+                        <div class="sk-num">02 / Data Analysis</div>
+                        <div class="sk-name">Machine Learning<br>NLP &amp; Topic Clustering</div>
+                    </div>
+                    <div>
+                        <div class="sk-num">03 / Creative Web</div>
+                        <div class="sk-name">Fullstack Layouts<br>Interactive Micro-Effects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="exp-inner">
+            <div class="exp-head rv">
+                <div class="about-tag">// Experience</div>
+                <h3 class="about-h" style="font-size:clamp(22px,2.5vw,34px)">Work History &amp; Engagement</h3>
+            </div>
+            <div class="exp-row rv">
+                <div class="exp-time">2026 — Sekarang</div>
+                <div class="exp-company">PT NoLimit Indonesia<span>Data Analyst Intern — Social Media Monitoring &amp;
+                        Sentiment Classification.</span></div>
+                <div class="exp-role">Data Analytics</div>
+            </div>
+            <div class="exp-row rv" style="transition-delay:.08s">
+                <div class="exp-time">2026 — Sekarang</div>
+                <div class="exp-company">Programming &amp; Coding Tutor<span>Mendidik logika algoritma dasar,
+                        computational thinking, dan aplikasi interaktif anak-anak.</span></div>
+                <div class="exp-role">Tech Educator</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="work-top rv">
+            <div>
+                <div class="work-tag">// Selected Works</div>
+                <h3 class="work-h">Core Architectural Projects</h3>
+            </div>
+            <div class="work-ct">[ Projects ]</div>
+        </div>
+
+        <div class="work-list">
+            <a class="work-row rv" href="project-detail.html?id=1" data-cursor="VIEW">
+                <div class="wr-l">
+                    <span class="wr-yr">2026</span>
+                    <div class="wr-nm-block">
+                        <span class="wr-nm">Custom Learning Management System</span>
+                        <span class="wr-desc">Platform manajemen pembelajaran terintegrasi untuk distribusi materi
+                            dinamis, pengerjaan kuis otomatis, dan cloud backend architecture.</span>
+                    </div>
+                </div>
+                <div class="wr-r">
+                    <span class="wr-tag">Fullstack &amp; Cloud</span>
+                    <span class="wr-arr">→</span>
+                </div>
+            </a>
+
+            <a class="work-row rv" href="project-detail.html?id=2" style="transition-delay:.08s" data-cursor="VIEW">
+                <div class="wr-l">
+                    <span class="wr-yr">2025</span>
+                    <div class="wr-nm-block">
+                        <span class="wr-nm">Automated Brand Monitoring Dashboard</span>
+                        <span class="wr-desc">Aplikasi visualisasi data media sosial berbasis Streamlit menggunakan
+                            klastering topik NLP (NMF) dan machine learning sentiment classification.</span>
+                    </div>
+                </div>
+                <div class="wr-r">
+                    <span class="wr-tag">Data Science &amp; NLP</span>
+                    <span class="wr-arr">→</span>
+                </div>
+            </a>
+
+            <a class="work-row rv" href="project-detail.html?id=3" style="transition-delay:.16s" data-cursor="VIEW">
+                <div class="wr-l">
+                    <span class="wr-yr">2025</span>
+                    <div class="wr-nm-block">
+                        <span class="wr-nm">Interactive Programming Quiz Platform</span>
+                        <span class="wr-desc">Sistem gamifikasi kuis interaktif berbasis Python logika terapan untuk
+                            menyederhanakan pemahaman struktur data bagi pemula.</span>
+                    </div>
+                </div>
+                <div class="wr-r">
+                    <span class="wr-tag">Frontend &amp; Logic</span>
+                    <span class="wr-arr">→</span>
+                </div>
+            </a>
+
+            <a class="work-row rv" href="project-detail.html?id=4" style="transition-delay:.24s" data-cursor="VIEW">
+                <div class="wr-l">
+                    <span class="wr-yr">2025</span>
+                    <div class="wr-nm-block">
+                        <span class="wr-nm">Cryptographic Core Backend Infrastructure</span>
+                        <span class="wr-desc">Rancangan sistem backend tangguh menggunakan implementasi algoritma
+                            keamanan enkripsi RSA untuk transmisi data informasi sensitif.</span>
+                    </div>
+                </div>
+                <div class="wr-r">
+                    <span class="wr-tag">Security &amp; Software Eng.</span>
+                    <span class="wr-arr">→</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="footer-wave-container">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,90 C360,20 720,110 1080,30 C1260,-10 1350,30 1440,60 L1440,120 L0,120 Z" fill="#182747" />
+            <path d="M1440,90 C1080,20 720,110 360,30 C180,-10 90,30 0,60 L0,120 L1440,120 Z" fill="#182747"
+                opacity="0.25" />
+        </svg>
+    </div>
+
+    <footer id="contact">
+        <div class="ft-inner">
+            <div class="rv">
+                <div class="ft-tag">// Interaction</div>
+                <div class="ft-h">Let's create something<br>exceptional together.</div>
+                <div class="ft-links">
+                    <a href="https://www.linkedin.com/in/raka-zilva-inggia/" target="_blank"
+                        class="magnet-item">LinkedIn</a>
+                    <a href="https://github.com/rkaazilva" target="_blank" class="magnet-item">GitHub</a>
+                    <a href="https://www.instagram.com/rkaazilva/?hl=en" target="_blank"
+                        class="magnet-item">Instagram</a>
+                    <a href="https://wa.me/62882001974341" target="_blank" class="magnet-item"
+                        style="color:#4ade80;border-bottom-color:rgba(74,222,128,.3)">WhatsApp</a>
+                </div>
+                <div class="ft-r">
+                    <div>Bandung, Indonesia — Local Time <span id="clock">--:--:--</span></div>
+                </div>
+            </div>
+
+            <div class="ft-cta-box rv" style="transition-delay:.12s">
+                <a href="mailto:rakazinggia@gmail.com" class="ft-cta magnet-item" data-cursor="EMAIL">
+                    <span>Get In<br>Touch</span>
+                </a>
+            </div>
+        </div>
+        <div class="ft-copy">
+            <span>© 2026 Raka Zilva Inggia</span>
+            <span>All Rights Reserved</span>
+        </div>
+    </footer>
+
+    <script>
+        /* ---- CURSOR ACTIONS (AUTO DISABLING ON MOBILE VIA CSS) ---- */
+        const dot = document.getElementById('c-dot'), ring = document.getElementById('c-ring');
+        let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+
+        // Cek device untuk jalankan fungsi kursor (hanya Desktop)
+        if (window.innerWidth > 860) {
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px' });
+            (function loop() { rx += (mx - rx) * .13; ry += (my - ry) * .13; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(loop) })();
+
+            document.querySelectorAll('a,.work-row,.magnet-item,.ft-cta').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    ring.style.width = '70px'; ring.style.height = '70px';
+                    ring.style.borderColor = 'var(--gold)';
+                    ring.style.background = 'rgba(207, 168, 123, 0.1)';
+                    const txt = el.getAttribute('data-cursor');
+                    if (txt) ring.textContent = txt;
+                    else if (el.classList.contains('work-row')) ring.textContent = 'VIEW';
+                });
+                el.addEventListener('mouseleave', () => {
+                    ring.style.width = '40px'; ring.style.height = '40px';
+                    ring.style.borderColor = 'rgba(244, 237, 226, .3)';
+                    ring.style.background = 'transparent';
+                    ring.textContent = '';
+                });
+            });
+
+            /* ---- MAGNETIC ITEMS (DESKTOP ONLY) ---- */
+            document.querySelectorAll('.magnet-item').forEach(item => {
+                item.addEventListener('mousemove', e => {
+                    const r = item.getBoundingClientRect();
+                    const x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+                    item.style.transform = `translate3d(${x * .35}px,${y * .35}px,0)`;
+                    item.style.transition = 'none';
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = `translate3d(0,0,0)`;
+                    item.style.transition = 'transform .5s cubic-bezier(.25,1,.5,1)';
+                });
+            });
+        }
+
+        /* ---- PRELOADER ---- */
+        const words = ['Hallo', 'Welcome', 'My Portfolio', 'Raka Zilva Inggia'];
+        const pw = document.getElementById('pre-word');
+        let wi = 0;
+
+        function nextWord() {
+            if (wi < words.length) {
+                pw.textContent = words[wi]; pw.style.opacity = '1';
+                setTimeout(() => {
+                    pw.style.opacity = '0';
+                    setTimeout(() => { wi++; nextWord(); }, 200);
+                }, wi === words.length - 1 ? 900 : 650);
+            } else {
+                const pre = document.getElementById('preloader');
+                pre.style.transform = 'translateY(-100%)';
+                setTimeout(() => pre.style.display = 'none', 1200);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            if (sessionStorage.getItem('portfolio_loaded')) {
+                const pre = document.getElementById('preloader');
+                pre.style.display = 'none';
+            } else {
+                sessionStorage.setItem('portfolio_loaded', 'true');
+                setTimeout(nextWord, 200);
+            }
+        });
+
+        /* ---- SCROLL REVEAL ---- */
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on') });
+        }, { threshold: .05 });
+        document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+        /* ---- ANTI-JANK SCROLL MARQUEE ---- */
+        const mqTrack = document.getElementById('mqTrack');
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const shift = (scrolled * 0.15) % 100;
+            mqTrack.style.transform = `translate3d(-${shift}px, 0, 0)`;
+        }, { passive: true });
+
+        /* ---- CLOCK ---- */
+        function tick() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
+        setInterval(tick, 1000); tick();
+    </script>
+</body>
+
+</html>
