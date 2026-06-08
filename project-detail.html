@@ -124,7 +124,7 @@
             justify-content: flex-end;
             padding: 120px clamp(24px, 5vw, 80px) clamp(40px, 6vw, 80px);
             position: relative;
-            overflow: hidden
+            overflow: visible
         }
 
         .proj-hero::before {
@@ -407,8 +407,67 @@
         }
 
         @media(max-width: 760px) {
-            .laptop-mockup-wrap { padding: 20px 0 10px; }
+            body { cursor: default; }
+            #c-dot, #c-ring { display: none; }
+
+            nav {
+                padding: 18px 20px;
+                background: rgba(245, 244, 241, 0.92);
+                backdrop-filter: blur(12px);
+            }
+
+            .proj-hero {
+                min-height: auto;
+                padding: 100px 20px 36px;
+            }
+
+            .proj-title {
+                font-size: clamp(28px, 8vw, 44px);
+            }
+
+            .proj-meta {
+                gap: 20px;
+                flex-wrap: wrap;
+                margin-top: 20px;
+            }
+
+            .proj-num {
+                font-size: clamp(80px, 30vw, 160px);
+                right: 12px;
+            }
+
+            .laptop-mockup-wrap {
+                padding: 20px 0 10px;
+            }
+
             .laptop-camera { display: none; }
+
+            .proj-image-wrapper {
+                padding: 40px 16px;
+                margin-top: -20px;
+            }
+
+            .proj-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .proj-sidebar { position: static; }
+
+            .proj-content {
+                padding: 36px 20px;
+            }
+
+            .proj-nav {
+                padding: 0 20px 40px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+
+            .proj-next-label, .proj-next-link {
+                text-align: left;
+            }
         }
 
         /* CONTENT */
@@ -576,20 +635,7 @@
             transform: none
         }
 
-        @media(max-width:760px) {
-            .proj-grid {
-                grid-template-columns: 1fr;
-                gap: 40px
-            }
-
-            .proj-sidebar {
-                position: static
-            }
-
-            .proj-meta {
-                gap: 24px
-            }
-        }
+        /* Mobile styles now handled in the breakpoint above */
     </style>
 </head>
 
