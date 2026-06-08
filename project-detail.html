@@ -286,6 +286,131 @@
             text-transform: uppercase
         }
 
+        /* ==========================================
+           PREMIUM LAPTOP MOCKUP (Live Demo)
+           ========================================== */
+        .laptop-mockup-wrap {
+            width: 100%;
+            max-width: 1080px;
+            display: flex;
+            justify-content: center;
+            perspective: 1200px;
+            padding: 40px 0 20px;
+        }
+
+        .laptop {
+            width: 100%;
+            max-width: 900px;
+            transition: transform .6s cubic-bezier(.16, 1, .3, 1);
+        }
+
+        .laptop:hover {
+            transform: rotateX(2deg) translateY(-6px);
+        }
+
+        .laptop-screen-wrap {
+            background: #1a1a2e;
+            border-radius: 16px 16px 0 0;
+            padding: 14px 14px 0;
+            box-shadow:
+                0 -2px 0 1px #555,
+                0 0 0 2px #333,
+                0 40px 80px rgba(0,0,0,0.5),
+                0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .laptop-camera {
+            width: 6px;
+            height: 6px;
+            background: #3a3a4a;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            box-shadow: inset 0 0 2px rgba(0,0,0,.5);
+        }
+
+        .laptop-screen {
+            width: 100%;
+            aspect-ratio: 16/10;
+            border-radius: 4px 4px 0 0;
+            overflow: hidden;
+            position: relative;
+            background: #0d0f10;
+        }
+
+        .laptop-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .laptop-screen-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Laptop Base / Hinge */
+        .laptop-base {
+            background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+            height: 16px;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 0 #111, 0 4px 20px rgba(0,0,0,.4);
+            position: relative;
+        }
+
+        .laptop-base::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 8px;
+            background: linear-gradient(to bottom, #1a1a1a, #0d0d0d);
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.4);
+        }
+
+        .laptop-footer-bar {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+            border-radius: 2px;
+            margin: 0 auto;
+        }
+
+        /* Tombol visit site */
+        .live-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-family: 'Space Mono', monospace;
+            font-size: 8px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            background: rgba(74, 222, 128, .15);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, .35);
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: background .3s;
+            z-index: 10;
+        }
+
+        .live-badge:hover {
+            background: rgba(74, 222, 128, .3);
+        }
+
+        @media(max-width: 760px) {
+            .laptop-mockup-wrap { padding: 20px 0 10px; }
+            .laptop-camera { display: none; }
+        }
+
         /* CONTENT */
         .proj-content {
             max-width: 1080px;
@@ -561,16 +686,17 @@
         /* ---- PROJECT DATA ---- */
         const projects = {
             1: {
-                title: 'Custom Learning Management System',
-                year: '2026',
-                category: 'Fullstack & Cloud',
+                title: 'Tax Center UIN Bandung — Website',
+                year: '2025',
+                category: 'Fullstack & Web',
                 role: 'Lead Developer',
                 num: '01',
-                image: 'image/projeklms.png', // Ini tetap pakai foto lokal lu yang sudah ada
-                tech: ['Python', 'Django', 'PostgreSQL', 'React', 'AWS', 'REST API'],
-                about: `Platform manajemen pembelajaran terintegrasi yang dibangun untuk mendukung distribusi materi dinamis, pengerjaan kuis otomatis, dan cloud backend architecture yang scalable.`,
-                problem: `Kebutuhan akan sistem pembelajaran digital yang dapat mengelola konten secara efisien, melacak progres siswa secara real-time, dan beroperasi di infrastruktur cloud yang handal.`,
-                features: ['Distribusi materi dinamis dengan versioning konten', 'Sistem kuis otomatis dengan analitik performa', 'Cloud backend scalable dengan AWS', 'Dashboard admin real-time', 'Autentikasi multi-role (admin, instruktur, siswa)'],
+                liveUrl: 'https://taxcenteruinbandung.com',
+                image: '',
+                tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'Bootstrap'],
+                about: `Website resmi Tax Center UIN Sunan Gunung Djati Bandung yang dibangun untuk mendukung publikasi informasi perpajakan, layanan konsultasi, dan profil lembaga secara digital.`,
+                problem: `Tax Center membutuhkan kehadiran digital yang profesional untuk menjangkau mahasiswa, akademisi, dan masyarakat umum dengan informasi dan layanan perpajakan yang mudah diakses.`,
+                features: ['Halaman profil lembaga dan struktur organisasi', 'Publikasi berita dan artikel perpajakan', 'Sistem informasi layanan konsultasi pajak', 'Desain responsif untuk semua perangkat', 'Integrasi media sosial dan informasi kontak'],
                 next: 2
             },
             2: {
@@ -631,9 +757,31 @@
         document.getElementById('projRole').textContent = p.role;
         document.getElementById('projNum').textContent = '0' + id;
 
-        // Render Image (Jika image ada jalankan tag <img>, jika kosong tampilkan placeholder bawaan)
+        // Render Image — jika punya liveUrl, tampilkan laptop mockup dengan iframe; jika tidak, tampilkan browser mockup dengan gambar
         const imageArea = document.getElementById('projImage');
-        if (p.image && p.image !== '') {
+        const imageWrapper = document.querySelector('.proj-image-wrapper');
+        const mockupContainer = document.querySelector('.mockup-container');
+
+        if (p.liveUrl) {
+            // Ganti seluruh image-wrapper dengan laptop mockup
+            imageWrapper.innerHTML = `
+                <div class="laptop-mockup-wrap">
+                    <div class="laptop">
+                        <div class="laptop-screen-wrap">
+                            <div class="laptop-camera"></div>
+                            <div class="laptop-screen">
+                                <iframe src="${p.liveUrl}" title="${p.title} Live Demo" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+                                <div class="laptop-screen-overlay"></div>
+                            </div>
+                        </div>
+                        <div class="laptop-base"></div>
+                        <div class="laptop-footer-bar"></div>
+                    </div>
+                </div>
+                <a href="${p.liveUrl}" target="_blank" class="live-badge" rel="noopener noreferrer">⬤ Live Site</a>
+            `;
+            imageWrapper.style.position = 'relative';
+        } else if (p.image && p.image !== '') {
             imageArea.innerHTML = `<img src="${p.image}" alt="${p.title}">`;
         } else {
             imageArea.innerHTML = `<div class="proj-image-placeholder"><span>Screenshot / Demo Preview</span></div>`;
