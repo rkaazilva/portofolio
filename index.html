@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="o45SnloZKElTvc_Hh2sZpBm4v2jrosnxc_OKNS9cIwQ" />
+    <meta name="description" content="Portofolio Raka Zilva Inggia. Seorang Web Developer yang berfokus pada Fullstack Development, UI/UX, dan Data Science.">
+    <meta name="keywords" content="Raka Zilva Inggia, Web Developer, Fullstack Developer, Portofolio Raka, Programmer">
     <title>Raka Zilva Inggia — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" type="image/png" href="image/icon.png?v=2">
+    <link rel="icon" type="image/png" href="image/icon2.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap"
         rel="stylesheet">
@@ -844,9 +847,9 @@
             height: 1.5px;
             background: var(--cream);
             border-radius: 2px;
-            transition: transform .4s cubic-bezier(.16, 1, .3, 1), 
-                        opacity .3s, 
-                        width .4s cubic-bezier(.16, 1, .3, 1);
+            transition: transform .4s cubic-bezier(.16, 1, .3, 1),
+                opacity .3s,
+                width .4s cubic-bezier(.16, 1, .3, 1);
             transform-origin: center;
         }
 
@@ -897,7 +900,7 @@
             padding: 60px 44px 60px;
             transform: translateX(100%);
             transition: transform .45s cubic-bezier(.16, 1, .3, 1);
-            box-shadow: -20px 0 60px rgba(0,0,0,.5);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, .5);
             border-left: 1px solid rgba(244, 237, 226, .06);
         }
 
@@ -910,14 +913,16 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,.6);
+            background: rgba(0, 0, 0, .6);
             z-index: 590;
             opacity: 0;
             transition: opacity .35s ease;
             backdrop-filter: blur(3px);
         }
 
-        .mobile-nav-backdrop.open { opacity: 1; }
+        .mobile-nav-backdrop.open {
+            opacity: 1;
+        }
 
         /* Tombol X tutup di dalam overlay */
         .mobile-nav-close {
@@ -945,11 +950,20 @@
             opacity: 1;
         }
 
-        .mobile-nav-overlay.open .mobile-nav-link:nth-child(2) { transition-delay: .06s; }
-        .mobile-nav-overlay.open .mobile-nav-link:nth-child(3) { transition-delay: .12s; }
-        .mobile-nav-overlay.open .mobile-nav-link:nth-child(4) { transition-delay: .18s; }
+        .mobile-nav-overlay.open .mobile-nav-link:nth-child(2) {
+            transition-delay: .06s;
+        }
 
-        .mobile-nav-link:hover, .mobile-nav-link:active {
+        .mobile-nav-overlay.open .mobile-nav-link:nth-child(3) {
+            transition-delay: .12s;
+        }
+
+        .mobile-nav-overlay.open .mobile-nav-link:nth-child(4) {
+            transition-delay: .18s;
+        }
+
+        .mobile-nav-link:hover,
+        .mobile-nav-link:active {
             color: var(--cream);
         }
 
@@ -984,12 +998,25 @@
             opacity: 1;
         }
 
-        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(1) { transition: color .3s, transform .5s .28s cubic-bezier(.16,1,.3,1), opacity .5s .28s; }
-        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(2) { transition: color .3s, transform .5s .33s cubic-bezier(.16,1,.3,1), opacity .5s .33s; }
-        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(3) { transition: color .3s, transform .5s .38s cubic-bezier(.16,1,.3,1), opacity .5s .38s; }
-        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(4) { transition: color .3s, transform .5s .43s cubic-bezier(.16,1,.3,1), opacity .5s .43s; }
+        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(1) {
+            transition: color .3s, transform .5s .28s cubic-bezier(.16, 1, .3, 1), opacity .5s .28s;
+        }
 
-        .mobile-nav-social a:hover { color: var(--gold); }
+        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(2) {
+            transition: color .3s, transform .5s .33s cubic-bezier(.16, 1, .3, 1), opacity .5s .33s;
+        }
+
+        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(3) {
+            transition: color .3s, transform .5s .38s cubic-bezier(.16, 1, .3, 1), opacity .5s .38s;
+        }
+
+        .mobile-nav-overlay.open .mobile-nav-social a:nth-child(4) {
+            transition: color .3s, transform .5s .43s cubic-bezier(.16, 1, .3, 1), opacity .5s .43s;
+        }
+
+        .mobile-nav-social a:hover {
+            color: var(--gold);
+        }
 
         /* === HERO MOBILE INFO STRIP === */
         /* Strip info di dalam hero, di bawah marquee nama */
@@ -1000,7 +1027,7 @@
             left: 0;
             right: 0;
             z-index: 20;
-            background: linear-gradient(to top, rgba(8,10,12,0.88) 0%, rgba(8,10,12,0.6) 60%, transparent 100%);
+            background: linear-gradient(to top, rgba(8, 10, 12, 0.88) 0%, rgba(8, 10, 12, 0.6) 60%, transparent 100%);
             padding: 28px clamp(20px, 5vw, 40px) 20px;
             gap: 10px 18px;
             flex-wrap: wrap;
@@ -1021,8 +1048,8 @@
             letter-spacing: .15em;
             text-transform: uppercase;
             color: rgba(255, 255, 255, .55);
-            background: rgba(255,255,255,.1);
-            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .15);
             padding: 4px 9px;
             border-radius: 3px;
         }
@@ -1045,9 +1072,14 @@
         @media(max-width: 860px) {
 
             /* === NAV MOBILE === */
-            body { cursor: default; }
+            body {
+                cursor: default;
+            }
 
-            #c-dot, #c-ring { display: none !important; }
+            #c-dot,
+            #c-ring {
+                display: none !important;
+            }
 
             nav {
                 padding: 18px 24px;
@@ -1055,8 +1087,13 @@
                 backdrop-filter: none;
             }
 
-            .nav-links { display: none; }
-            .hamburger { display: flex; }
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
 
             /* === HERO MOBILE === */
             .mq-text {
@@ -1070,10 +1107,15 @@
             }
 
             /* Sembunyikan dekorasi hero di mobile agar tidak menutupi muka */
-            .hero-right, .hero-left { display: none; }
+            .hero-right,
+            .hero-left {
+                display: none;
+            }
 
             /* Tampilkan strip info di BAWAH NAMA, di dalam area hero */
-            .hero-mobile-info { display: flex; }
+            .hero-mobile-info {
+                display: flex;
+            }
 
             /* Hero harus cukup tinggi untuk tampung nama + info strip */
             #hero {
@@ -1103,7 +1145,9 @@
                 padding-top: 24px;
             }
 
-            .sk-name { font-size: 11px; }
+            .sk-name {
+                font-size: 11px;
+            }
 
             /* === EXPERIENCE MOBILE === */
             .exp-row {
@@ -1112,7 +1156,9 @@
                 padding: 20px 0;
             }
 
-            .exp-company { font-size: 16px; }
+            .exp-company {
+                font-size: 16px;
+            }
 
             .exp-role {
                 text-align: left;
@@ -1139,9 +1185,13 @@
                 gap: 14px;
             }
 
-            .work-row:hover { padding-left: 0; }
+            .work-row:hover {
+                padding-left: 0;
+            }
 
-            .wr-nm { font-size: clamp(18px, 5vw, 26px); }
+            .wr-nm {
+                font-size: clamp(18px, 5vw, 26px);
+            }
 
             .wr-desc {
                 font-size: 12px;
@@ -1153,7 +1203,9 @@
                 justify-content: space-between;
             }
 
-            .wr-r .wr-arr { transform: none !important; }
+            .wr-r .wr-arr {
+                transform: none !important;
+            }
 
             /* === FOOTER MOBILE === */
             .ft-inner {
@@ -1184,16 +1236,22 @@
         }
 
         @media(max-width: 480px) {
-            nav { padding: 16px 20px; }
+            nav {
+                padding: 16px 20px;
+            }
 
             .skills {
                 grid-template-columns: 1fr;
                 gap: 14px;
             }
 
-            .work-row { padding: 18px 0; }
+            .work-row {
+                padding: 18px 0;
+            }
 
-            .wr-l { gap: 12px; }
+            .wr-l {
+                gap: 12px;
+            }
 
             .wr-desc {
                 -webkit-line-clamp: 3;
@@ -1202,13 +1260,23 @@
                 overflow: hidden;
             }
 
-            .ft-h { font-size: 28px; }
+            .ft-h {
+                font-size: 28px;
+            }
         }
 
         @media(max-width: 390px) {
-            .about-h { font-size: 22px; }
-            .exp-company { font-size: 14px; }
-            .ft-h { font-size: 24px; }
+            .about-h {
+                font-size: 22px;
+            }
+
+            .exp-company {
+                font-size: 14px;
+            }
+
+            .ft-h {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -1398,7 +1466,8 @@
                     <span class="wr-yr">2026</span>
                     <div class="wr-nm-block">
                         <span class="wr-nm">Desa Mekarlaksana — Website Desa & UMKM</span>
-                        <span class="wr-desc">Platform digital desa terintegrasi dengan direktori UMKM, fitur live chat ke pemilik usaha, dan profil lengkap desa untuk mendorong ekonomi lokal.</span>
+                        <span class="wr-desc">Platform digital desa terintegrasi dengan direktori UMKM, fitur live chat
+                            ke pemilik usaha, dan profil lengkap desa untuk mendorong ekonomi lokal.</span>
                     </div>
                 </div>
                 <div class="wr-r">
@@ -1457,7 +1526,8 @@
                     <span class="wr-yr">2026</span>
                     <div class="wr-nm-block">
                         <span class="wr-nm">AdMs Marketplace</span>
-                        <span class="wr-desc">E-commerce platform modern untuk produk digital dengan antarmuka yang dinamis dan terintegrasi.</span>
+                        <span class="wr-desc">E-commerce platform modern untuk produk digital dengan antarmuka yang
+                            dinamis dan terintegrasi.</span>
                     </div>
                 </div>
                 <div class="wr-r">
@@ -1471,7 +1541,8 @@
                     <span class="wr-yr">2026</span>
                     <div class="wr-nm-block">
                         <span class="wr-nm">Kartika Dermaluxe — Skincare</span>
-                        <span class="wr-desc">Landing page interaktif untuk brand perawatan kulit eksklusif dengan fokus pada katalog visual dan user experience.</span>
+                        <span class="wr-desc">Landing page interaktif untuk brand perawatan kulit eksklusif dengan fokus
+                            pada katalog visual dan user experience.</span>
                     </div>
                 </div>
                 <div class="wr-r">
@@ -1485,7 +1556,8 @@
                     <span class="wr-yr">2026</span>
                     <div class="wr-nm-block">
                         <span class="wr-nm">Le'leson</span>
-                        <span class="wr-desc">Sistem profil digital responsif dengan desain estetis untuk memperkuat presensi digital brand secara mandiri.</span>
+                        <span class="wr-desc">Sistem profil digital responsif dengan desain estetis untuk memperkuat
+                            presensi digital brand secara mandiri.</span>
                     </div>
                 </div>
                 <div class="wr-r">
@@ -1499,7 +1571,8 @@
                     <span class="wr-yr">2026</span>
                     <div class="wr-nm-block">
                         <span class="wr-nm">Bakery Forecast Dashboard</span>
-                        <span class="wr-desc">Dashboard analitik dan prediksi (forecasting) penjualan bakery untuk optimalisasi produksi berbasis machine learning.</span>
+                        <span class="wr-desc">Dashboard analitik dan prediksi (forecasting) penjualan bakery untuk
+                            optimalisasi produksi berbasis machine learning.</span>
                     </div>
                 </div>
                 <div class="wr-r">
@@ -1513,7 +1586,8 @@
 
     <div class="footer-wave-container" style="background: var(--navy);">
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,90 C360,20 720,110 1080,30 C1260,-10 1350,30 1440,60 L1440,120 L0,120 Z" fill="var(--footer-bg)" />
+            <path d="M0,90 C360,20 720,110 1080,30 C1260,-10 1350,30 1440,60 L1440,120 L0,120 Z"
+                fill="var(--footer-bg)" />
             <path d="M1440,90 C1080,20 720,110 360,30 C180,-10 90,30 0,60 L0,120 L1440,120 Z" fill="var(--footer-bg)"
                 opacity="0.25" />
         </svg>
