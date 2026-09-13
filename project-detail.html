@@ -799,6 +799,62 @@
                 about: `Platform digital resmi Desa Mekarlaksana yang dibangun untuk memperkuat identitas desa secara online dan memberdayakan UMKM lokal agar bisa menjangkau pelanggan lebih luas.`,
                 problem: `Desa membutuhkan kehadiran digital yang representatif untuk mempublikasikan informasi desa, memperkenalkan produk UMKM kepada masyarakat luas, dan memfasilitasi komunikasi langsung antara konsumen dengan pemilik usaha.`,
                 features: ['Profil lengkap desa dan pemerintahan', 'Direktori UMKM dengan produk unggulan', 'Fitur live chat / hubungi langsung ke pemilik UMKM via WhatsApp', 'Desain responsif untuk semua perangkat', 'Integrasi kontak dan lokasi desa'],
+                next: 6
+            },
+            6: {
+                title: 'AdMs Marketplace',
+                year: '2026',
+                category: 'Web & E-Commerce',
+                role: 'Fullstack Developer',
+                num: '06',
+                liveUrl: 'https://armadadigitalmarketing.top/admsmarketplace/',
+                image: '',
+                tech: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL', 'Payment Gateway'],
+                about: `E-commerce platform modern untuk produk digital dengan antarmuka yang dinamis dan terintegrasi untuk memaksimalkan konversi penjualan.`,
+                problem: `Kebutuhan platform terpusat untuk menjual produk digital dengan sistem manajemen inventaris dan transaksi pembayaran yang mulus tanpa bergantung pada marketplace pihak ketiga.`,
+                features: ['Katalog produk digital interaktif', 'Sistem keranjang belanja & checkout', 'Dashboard manajemen untuk admin', 'Desain responsif dan modern', 'Keamanan transaksi'],
+                next: 7
+            },
+            7: {
+                title: 'Kartika Dermaluxe — Skincare',
+                year: '2026',
+                category: 'Frontend & UI',
+                role: 'Frontend Developer',
+                num: '07',
+                liveUrl: 'https://armadadigitalmarketing.top/KartikaDermaluxe/',
+                image: '',
+                tech: ['HTML', 'CSS', 'JavaScript', 'UI/UX Design', 'Animations'],
+                about: `Landing page interaktif untuk brand perawatan kulit eksklusif dengan fokus pada katalog visual dan pengalaman pengguna (user experience) tingkat tinggi.`,
+                problem: `Brand skincare membutuhkan etalase digital premium yang mampu menonjolkan kualitas dan detail produk secara visual untuk menarik target pasar menengah ke atas.`,
+                features: ['Desain UI/UX premium yang elegan', 'Animasi scroll interaktif (parallax)', 'Katalog produk visual beresolusi tinggi', 'Optimasi performa & load gambar cepat', 'Integrasi call-to-action langsung ke sales'],
+                next: 8
+            },
+            8: {
+                title: 'Le\'leson',
+                year: '2026',
+                category: 'Branding & Web',
+                role: 'Web Developer',
+                num: '08',
+                liveUrl: 'https://Leleson.my.id',
+                image: '',
+                tech: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
+                about: `Sistem profil digital responsif dengan desain estetis untuk memperkuat presensi digital brand secara mandiri dan profesional.`,
+                problem: `Diperlukannya web profil yang cepat, estetik, dan SEO-friendly untuk membangun kredibilitas dan kepercayaan audiens terhadap identitas brand.`,
+                features: ['Halaman profil perusahaan / brand komprehensif', 'Desain minimalis dan estetis', 'Pendekatan mobile-first layout', 'Optimasi SEO dasar untuk visibilitas pencarian', 'Integrasi form kontak'],
+                next: 9
+            },
+            9: {
+                title: 'Bakery Forecast Dashboard',
+                year: '2026',
+                category: 'Data Science & Analytics',
+                role: 'Data Analyst',
+                num: '09',
+                liveUrl: 'https://bakery-forecast-1.preview.emergentagent.com/',
+                image: '',
+                tech: ['Python', 'Pandas', 'Scikit-learn', 'Streamlit', 'Machine Learning', 'Data Visualization'],
+                about: `Dashboard analitik dan prediksi (forecasting) tren penjualan toko roti (bakery) untuk optimalisasi tingkat produksi harian berbasis machine learning.`,
+                problem: `Manajemen sering membuang bahan baku karena overproduksi atau kehilangan potensi pendapatan karena kehabisan stok akibat tidak akuratnya perkiraan permintaan harian.`,
+                features: ['Model machine learning untuk forecasting permintaan', 'Visualisasi tren penjualan interaktif', 'Rekomendasi batas produksi harian', 'Filter rentang waktu dan jenis kategori produk', 'Eksplorasi data historis penjualan'],
                 next: 1
             }
 
@@ -853,7 +909,7 @@
         p.tech.forEach(t => { const span = document.createElement('span'); span.className = 'tech-tag'; span.textContent = t; tagsEl.appendChild(span) });
 
         // Body content
-        document.getElementById('projBody').innerHTML = `
+        let bodyHtml = `
   <h3>Tentang Projek</h3>
   <p>${p.about}</p>
   <h3>Problem yang Dipecahkan</h3>
@@ -861,6 +917,18 @@
   <h3>Fitur Utama</h3>
   <ul>${p.features.map(f => '<li>' + f + '</li>').join('')}</ul>
 `;
+        
+        if (p.liveUrl) {
+            bodyHtml += `
+            <div style="margin-top: 48px; margin-bottom: 20px;">
+                <a href="${p.liveUrl}" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--teal); color: var(--cream); text-decoration: none; font-family: 'Space Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-radius: 4px; transition: background 0.3s, transform 0.3s;" onmouseover="this.style.background='var(--navy)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='var(--teal)'; this.style.transform='none';">
+                    Kunjungi ${p.title} ↗
+                </a>
+            </div>
+            `;
+        }
+
+        document.getElementById('projBody').innerHTML = bodyHtml;
 
         // Next project link
         const nextP = projects[p.next];
